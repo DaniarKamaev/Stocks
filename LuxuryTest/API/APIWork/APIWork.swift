@@ -26,16 +26,10 @@ class APIWork {
                 complition(.failure(error!))
                 return
             }
-            print(data)
-            if let apiData = self.jsonDecode(from: data) {
-                DispatchQueue.main.async {
-                    complition(.success(data))
-                }
-            } else {
-                print("error parse data")
+            DispatchQueue.main.async {
+                complition(.success(data))
             }
         }
-
         task.resume()
     }
     func jsonDecode(from data: Data) -> APIData? {
