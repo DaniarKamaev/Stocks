@@ -8,7 +8,7 @@ import UIKit
 
 class CastomCell: UITableViewCell {
     
-    let model = Model()
+    let model = ViewModel()
     
     private var name: UILabel = {
         let lable = UILabel()

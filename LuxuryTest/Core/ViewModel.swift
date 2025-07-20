@@ -6,10 +6,10 @@
 //
 import UIKit
 import Foundation
-class Model {
+class ViewModel {
     
     let api = APIWork()
-    let arrayCompany = ["AAPL", "TSLA", "ROSN", "MSFT", "AMZN", "GOOGL", "MA", "BAC", "ZM"]
+    let arrayCompany = ["AAPL", "TSLA", "ROSN", "MSFT", "AMZN", "GOOGL", "MA", "BAC", "ZM", "APPN", "APPF"]
     
     
     //MARK: - Network
