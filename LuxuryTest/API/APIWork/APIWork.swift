@@ -9,12 +9,15 @@
 import UIKit
 
 class APIWork {
+    
     func getData(_ companyName: String, complition: @escaping (Result<Data, Error>) -> Void ) {
         
         
-        let url = URL(string: "https://finnhub.io/api/v1/stock/profile2?symbol=" + companyName + "&token=d1sfvbpr01qkbods3gq0d1sfvbpr01qkbods3gqg")
-
-        let request = URLRequest(url: url!)
+        guard let url = URL(string: "https://finnhub.io/api/v1/stock/profile2?symbol=" + companyName + "&token=d1sfvbpr01qkbods3gq0d1sfvbpr01qkbods3gqg") else {
+            print("not url")
+            return
+        }
+        let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 print(error!)
@@ -27,19 +30,10 @@ class APIWork {
                 return
             }
             DispatchQueue.main.async {
+                print(data)
                 complition(.success(data))
             }
         }
         task.resume()
-    }
-    func jsonDecode(from data: Data) -> APIData? {
-        do {
-            let decoder = JSONDecoder()
-            let apiData = try decoder.decode(APIData.self, from: data)
-            return apiData
-        } catch {
-            print("lol error in 50 line")
-            return nil
-        }
     }
 }
