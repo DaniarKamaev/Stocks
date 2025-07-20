@@ -9,12 +9,15 @@ import Foundation
 class ViewModel {
     
     let api = APIWork()
-    let arrayCompany = ["AAPL", "TSLA", "ROSN", "MSFT", "AMZN", "GOOGL", "MA", "BAC", "ZM", "APPN", "APPF"]
+    let model = Model()
+    
+    //let arrayCompany = ["AAPL", "TSLA", "ROSN", "MSFT", "AMZN", "GOOGL", "MA", "BAC", "ZM", "APPN", "APPF"]
     
     
     //MARK: - Network
     public func getName(_ index: Int, complition: @escaping (String?) -> Void) {
-        api.getData(arrayCompany[index]) { result in
+        let element = model.arrayCompany[index]
+        api.getData(element) { result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -33,7 +36,8 @@ class ViewModel {
     }
     
     public func getPrice(_ index: Int, complition: @escaping (String?) -> Void) {
-        api.getData(arrayCompany[index]) { result in
+        let element = model.arrayCompany[index]
+        api.getData(element) { result in
             switch result {
             case .failure(let error):
                 print(error)
@@ -56,7 +60,8 @@ class ViewModel {
     
     //MARK: - Don't touch plz, image work
     private func getLogo(_ index: Int, complition: @escaping (String?) -> Void) {
-        api.getData(arrayCompany[index]) { result in
+        let element = model.arrayCompany[index]
+        api.getData(element) { result in
             switch result {
             case .failure(let error):
                 print(error)

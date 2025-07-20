@@ -8,7 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-    let model = ViewModel()
+    let viewModel = ViewModel()
+    let model = Model()
     let myTable = UITableView()
     let myImageView = UIImageView()
     let myFavorie = UIButton()

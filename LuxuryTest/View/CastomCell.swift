@@ -9,6 +9,7 @@ import UIKit
 class CastomCell: UITableViewCell {
     
     let model = ViewModel()
+    let dataModel = Model()
     
     private var name: UILabel = {
         let lable = UILabel()
@@ -91,7 +92,7 @@ class CastomCell: UITableViewCell {
     public func configurate(_ indexPath: IndexPath, _ tableView: UITableView) {
         
         
-        let text = model.arrayCompany[indexPath.row]
+        let text = dataModel.arrayCompany[indexPath.row]
         DispatchQueue.main.async {
             self.lable.text = text
         }
