@@ -8,6 +8,9 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    var showFavorite = false
+    
     let viewModel = ViewModel()
     let model = Model()
     let myTable = UITableView()
@@ -80,18 +83,21 @@ class ViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: false)
     }
     @objc func stocsActions() {
+        showFavorite = false
         let image = UIImage(named: "favorite")
+        
         let imageStoc = UIImage(named: "stocs")
         myFavorie.setImage(image, for: .normal)
         myStandart.setImage(imageStoc, for: .normal)
+        myTable.reloadData()
     }
     
-    
     @objc func likeActions() {
+        showFavorite = true
         let image = UIImage(named: "Favorite-1")
         let imageStoc = UIImage(named: "stocsLow")
         myFavorie.setImage(image, for: .normal)
         myStandart.setImage(imageStoc, for: .normal)
-        
+        myTable.reloadData()
     }
 }

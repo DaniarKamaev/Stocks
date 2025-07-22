@@ -10,6 +10,7 @@ class CastomCell: UITableViewCell {
     
     let model = ViewModel()
     let dataModel = Model()
+    var currentCompany: String?
     var react = false
     
     private var name: UILabel = {
@@ -108,14 +109,31 @@ class CastomCell: UITableViewCell {
         }
     //////////////////////////////////////////////////////////////////////////////
     
-    let userDef = UserDefaults.standard
+    private func updateFavoriteButton() {
+        guard let company = currentCompany else { return }
+        let isFavorite = dataModel.isFavorite(company: company)
+        let imageName = isFavorite ? "like" : "notLike"
+        favorite.setImage(UIImage(named: imageName), for: .normal)
+        react = isFavorite
+    }
+    
     
     private func like(_ button: UIButton) {
         button.addTarget(self, action: #selector(tap), for: .touchUpInside)
     }
     
     @objc func tap() {
-        if react == false {
+        guard let company = currentCompany else { return }
+        
+        if react {
+            dataModel.removeFavorite(company: company)
+        } else {
+            dataModel.addFavorite(company: company)
+        }
+        
+        updateFavoriteButton()
+        
+        /*if react == false {
             self.react = true
             let image = UIImage(named: "like")
             favorite.setImage(image, for: .normal)
@@ -124,42 +142,50 @@ class CastomCell: UITableViewCell {
             self.react = false
             let image = UIImage(named: "notLike")
             favorite.setImage(image, for: .normal)
-        }
+        } */
     }
+
     //////////////////////////////////////////////////////////////////////////////////////
     
     
-    public func configurate(_ indexPath: IndexPath, _ tableView: UITableView) {
+    
+    
+    public func configurate(with company: String, _ tableView: UITableView) {
+        //let company = dataModel.arrayCompany[indexPath.row]
+        currentCompany = company
+        updateFavoriteButton()
         
         like(favorite)
         
-        
-        let text = dataModel.arrayCompany[indexPath.row]
+        //let text = dataModel.arrayCompany[indexPath.row]
         DispatchQueue.main.async {
-            self.lable.text = text
+            self.lable.text = company
         }
-        
-        model.getName(indexPath.row) { data in
-            if let text = data {
-                DispatchQueue.main.async {
-                    self.name.text = text
+        if let index = dataModel.arrayCompany.firstIndex(of: company) {
+            model.getName(index) { data in
+                if let text = data {
+                    DispatchQueue.main.async {
+                        self.name.text = text
+                    }
                 }
             }
-        }
         
-        model.getImage(indexPath.row) { image in
-            if let Image = image {
-                DispatchQueue.main.async {
-                    self.photo.image = Image
+        
+            model.getImage(index) { image in
+                if let Image = image {
+                    DispatchQueue.main.async {
+                        self.photo.image = Image
+                    }
                 }
             }
-        }
-        model.getPrice(indexPath.row) { Text in
-            if let text1 = Text {
-                DispatchQueue.main.async {
-                    self.price.text = "$\(text1)"
+            model.getPrice(index) { Text in
+                if let text1 = Text {
+                    DispatchQueue.main.async {
+                        self.price.text = "$\(text1)"
+                    }
                 }
             }
         }
     }
+    
 }
