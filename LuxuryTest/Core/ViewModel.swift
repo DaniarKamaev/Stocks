@@ -5,7 +5,7 @@
 //  Created by dany on 17.07.2025.
 //
 import UIKit
-import Foundation
+
 class ViewModel {
     
     let api = APIWork()
@@ -15,92 +15,59 @@ class ViewModel {
   
     
     
-    
-    //MARK: - Network
-    public func getName(_ index: Int, complition: @escaping (String?) -> Void) {
-        let element = model.arrayCompany[index]
-        api.getData(element) { result in
-            switch result {
-            case .failure(let error):
+    //MARK: - Network Text
+      public func get(_ index: Int, complition: @escaping (String?, String?, String?) -> Void) {
+          let element = model.arrayCompany[index]
+          api.getData(element) { result in
+              switch result {
+              case .failure(let error):
                 print(error)
-            case .success(let data):
-                if let res = try? JSONDecoder().decode(APIData.self, from: data) {
-                    DispatchQueue.main.async {
-                        complition(res.name)
-                        print(res.name)
-                    }
-                } else {
-                    complition(nil)
-                    print("error in model 25")
-                }
-            }
-        }
-    }
-    
-    public func getPrice(_ index: Int, complition: @escaping (String?) -> Void) {
-        let element = model.arrayCompany[index]
-        api.getData(element) { result in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let data):
-                if let res = try? JSONDecoder().decode(APIData.self, from: data) {
-                    DispatchQueue.main.async {
-                        complition("\(res.shareOutstanding)")
-                        print(res.shareOutstanding)
-                    }
-                } else {
-                    complition(nil)
-                    print("error in model 25")
-                }
-            }
-        }
-    }
-    
-    
-    
-    
+                DispatchQueue.main.async { complition(nil,nil,nil) }
+                
+                complition(nil,nil,nil)
+              case .success(let data):
+                  if let res = try? JSONDecoder().decode(APIData.self, from: data) {
+                      DispatchQueue.main.async {
+                        complition("\(res.shareOutstanding)", "\(res.name)", "\(res.logo)")
+                      }
+                  } else {
+                    print("error api reqest")
+                    DispatchQueue.main.async { complition(nil,nil,nil) }
+                  }
+              }
+          }
+      }
     //MARK: - Don't touch plz, image work
-    private func getLogo(_ index: Int, complition: @escaping (String?) -> Void) {
-        let element = model.arrayCompany[index]
-        api.getData(element) { result in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let data):
-                if let json = try? JSONDecoder().decode(APIData.self, from: data) {
-                    complition(json.logo)
-                    let aaa = json.logo
-                    print(aaa)
-                }
-            }
-        }
-    }
-    lazy var requestImage: (String, @escaping (UIImage?) -> Void) -> Void = { url, completion in
-        DispatchQueue.global().async {
-            guard let imageUrl = URL(string: url),
-                  let imageData = try? Data(contentsOf: imageUrl) else {
-                DispatchQueue.main.async {
-                    completion(nil)
-                }
-                return
-            }
-            
-            let image = UIImage(data: imageData)
-            DispatchQueue.main.async {
-                completion(image)
-            }
-        }
-    }
     
-    public func getImage(_ index: Int, completion: @escaping (UIImage?) -> Void) {
-        getLogo(index) { [weak self] imageUrl in
-            guard let self = self, !imageUrl!.isEmpty else {
-                completion(nil)
-                return
+    private func loadImage(from urlString: String, completion: @escaping (UIImage?) -> Void) {
+            DispatchQueue.global().async {
+                guard let url = URL(string: urlString),
+                      let data = try? Data(contentsOf: url) else {
+                    DispatchQueue.main.async {
+                        completion(nil)
+                    }
+                    return
+                }
+                
+                let image = UIImage(data: data)
+                DispatchQueue.main.async {
+                    completion(image)
+                }
             }
-            
-            self.requestImage(imageUrl!, completion)
         }
-    }
+        
+        public func getCompanyInfoAndImage(_ index: Int, completion: @escaping (String?, String?, UIImage?) -> Void) {
+            get(index) { [weak self] shareOutstanding, name, logoUrl in
+                guard let self = self else { return }
+                
+                guard let logoUrl = logoUrl, !logoUrl.isEmpty else {
+                    completion(shareOutstanding, name, nil)
+                    return
+                }
+                
+                self.loadImage(from: logoUrl) { image in
+                    completion(shareOutstanding, name, image)
+                }
+            }
+        }
 }

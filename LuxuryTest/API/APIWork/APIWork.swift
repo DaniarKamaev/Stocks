@@ -10,9 +10,8 @@ import UIKit
 
 class APIWork {
     
+    //MARK: - Get data
     func getData(_ companyName: String, complition: @escaping (Result<Data, Error>) -> Void ) {
-        
-        
         guard let url = URL(string: "https://finnhub.io/api/v1/stock/profile2?symbol=" + companyName + "&token=d1uglihr01qpci1chfl0d1uglihr01qpci1chflg") else {
             print("not url")
             return

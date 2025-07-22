@@ -4,7 +4,6 @@
 //
 //  Created by dany on 16.07.2025.
 //
-
 import UIKit
 
 class ViewController: UIViewController {
@@ -29,7 +28,7 @@ class ViewController: UIViewController {
         createdStandertButton(myStandart)
         creatadRefrash(refresh)
     }
-    
+    //MARK: - UI
     private func createdScreachButton(_ button: UIButton) {
         let image = UIImage(named: "screch")
         button.frame = CGRect(x: 0, y: 60, width: 400, height: 60)
@@ -77,7 +76,7 @@ class ViewController: UIViewController {
         table.refreshControl = refresh
         view.addSubview(table)
     }
-   
+   //MARK: - Selectors
     @objc func tap() {
         let vc = ScrechViewController()
         navigationController?.pushViewController(vc, animated: false)

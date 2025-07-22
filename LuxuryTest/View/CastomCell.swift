@@ -13,6 +13,7 @@ class CastomCell: UITableViewCell {
     var currentCompany: String?
     var react = false
     
+    //MARK: - UI
     private var name: UILabel = {
         let lable = UILabel()
         lable.font = .systemFont(ofSize: 16, weight: .semibold)
@@ -72,6 +73,7 @@ class CastomCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    //MARK: - Constants
     private func setupUI() {
         contentView.addSubview(photo)
         contentView.addSubview(lable)
@@ -107,7 +109,7 @@ class CastomCell: UITableViewCell {
                 favorite.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
             ])
         }
-    //////////////////////////////////////////////////////////////////////////////
+    //MARK: - Favorite
     
     private func updateFavoriteButton() {
         guard let company = currentCompany else { return }
@@ -132,60 +134,28 @@ class CastomCell: UITableViewCell {
         }
         
         updateFavoriteButton()
-        
-        /*if react == false {
-            self.react = true
-            let image = UIImage(named: "like")
-            favorite.setImage(image, for: .normal)
-            userDef.addSuite(named: "like")
-        } else {
-            self.react = false
-            let image = UIImage(named: "notLike")
-            favorite.setImage(image, for: .normal)
-        } */
     }
 
-    //////////////////////////////////////////////////////////////////////////////////////
-    
-    
-    
+    //MARK: - Configurate
     
     public func configurate(with company: String, _ tableView: UITableView) {
-        //let company = dataModel.arrayCompany[indexPath.row]
         currentCompany = company
         updateFavoriteButton()
         
         like(favorite)
-        
-        //let text = dataModel.arrayCompany[indexPath.row]
         DispatchQueue.main.async {
             self.lable.text = company
         }
         if let index = dataModel.arrayCompany.firstIndex(of: company) {
-            model.getName(index) { data in
-                if let text = data {
-                    DispatchQueue.main.async {
-                        self.name.text = text
-                    }
-                }
-            }
-        
-        
-            model.getImage(index) { image in
-                if let Image = image {
-                    DispatchQueue.main.async {
-                        self.photo.image = Image
-                    }
-                }
-            }
-            model.getPrice(index) { Text in
-                if let text1 = Text {
-                    DispatchQueue.main.async {
-                        self.price.text = "$\(text1)"
-                    }
+            
+            model.getCompanyInfoAndImage(index) { [weak self] price, name, image in
+                guard let self = self else { return }
+                DispatchQueue.main.async {
+                    self.name.text = name
+                    self.price.text = price
+                    self.photo.image = image
                 }
             }
         }
     }
-    
 }
