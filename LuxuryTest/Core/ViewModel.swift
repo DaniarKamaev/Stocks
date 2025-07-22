@@ -10,8 +10,10 @@ class ViewModel {
     
     let api = APIWork()
     let model = Model()
+  
     
-    //let arrayCompany = ["AAPL", "TSLA", "ROSN", "MSFT", "AMZN", "GOOGL", "MA", "BAC", "ZM", "APPN", "APPF"]
+  
+    
     
     
     //MARK: - Network

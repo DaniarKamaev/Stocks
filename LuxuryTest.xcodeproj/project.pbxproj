@@ -16,8 +16,10 @@
 		3B2447262E28427300E6379F /* ApiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2447252E28427300E6379F /* ApiData.swift */; };
 		3B24472D2E28445E00E6379F /* APIWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B24472C2E28445E00E6379F /* APIWork.swift */; };
 		3B2A51CB2E2B178B00FCF3B2 /* CastomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A51CA2E2B178B00FCF3B2 /* CastomCell.swift */; };
-		3B2A51CE2E2B543100FCF3B2 /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A51CD2E2B543100FCF3B2 /* extensions.swift */; };
+		3B2A51CE2E2B543100FCF3B2 /* extensionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A51CD2E2B543100FCF3B2 /* extensionTableView.swift */; };
 		3B31C4792E2D7D9E002F9638 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31C4782E2D7D9E002F9638 /* Model.swift */; };
+		3B31C47D2E2E4B19002F9638 /* ScrechViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31C47C2E2E4B19002F9638 /* ScrechViewController.swift */; };
+		3B31C4812E2EE196002F9638 /* extensionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B31C4802E2EE196002F9638 /* extensionTextField.swift */; };
 		3BB632FB2E295BAB00677F17 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BB632FA2E295BAB00677F17 /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,8 +35,10 @@
 		3B2447252E28427300E6379F /* ApiData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiData.swift; sourceTree = "<group>"; };
 		3B24472C2E28445E00E6379F /* APIWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIWork.swift; sourceTree = "<group>"; };
 		3B2A51CA2E2B178B00FCF3B2 /* CastomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastomCell.swift; sourceTree = "<group>"; };
-		3B2A51CD2E2B543100FCF3B2 /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		3B2A51CD2E2B543100FCF3B2 /* extensionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionTableView.swift; sourceTree = "<group>"; };
 		3B31C4782E2D7D9E002F9638 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		3B31C47C2E2E4B19002F9638 /* ScrechViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrechViewController.swift; sourceTree = "<group>"; };
+		3B31C4802E2EE196002F9638 /* extensionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensionTextField.swift; sourceTree = "<group>"; };
 		3BB632FA2E295BAB00677F17 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -70,9 +74,9 @@
 			children = (
 				3B2447292E28428200E6379F /* API */,
 				3B2447242E2841E700E6379F /* Aplications */,
-				3B2447222E28419700E6379F /* Resurse */,
 				3B2A51D32E2C953D00FCF3B2 /* Core */,
 				3B2A51D22E2C94E200FCF3B2 /* View */,
+				3B2447222E28419700E6379F /* Resurse */,
 				3B24470B2E28418D00E6379F /* Products */,
 			);
 			path = LuxuryTest;
@@ -126,6 +130,7 @@
 		3B2A51D22E2C94E200FCF3B2 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3B31C47C2E2E4B19002F9638 /* ScrechViewController.swift */,
 				3B2447112E28418D00E6379F /* ViewController.swift */,
 				3B2A51CA2E2B178B00FCF3B2 /* CastomCell.swift */,
 			);
@@ -137,9 +142,18 @@
 			children = (
 				3BB632FA2E295BAB00677F17 /* ViewModel.swift */,
 				3B31C4782E2D7D9E002F9638 /* Model.swift */,
-				3B2A51CD2E2B543100FCF3B2 /* extensions.swift */,
+				3B31C4842E2EE1B9002F9638 /* Extensions */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		3B31C4842E2EE1B9002F9638 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3B31C4802E2EE196002F9638 /* extensionTextField.swift */,
+				3B2A51CD2E2B543100FCF3B2 /* extensionTableView.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,9 +231,11 @@
 				3BB632FB2E295BAB00677F17 /* ViewModel.swift in Sources */,
 				3B2A51CB2E2B178B00FCF3B2 /* CastomCell.swift in Sources */,
 				3B2447262E28427300E6379F /* ApiData.swift in Sources */,
-				3B2A51CE2E2B543100FCF3B2 /* extensions.swift in Sources */,
+				3B2A51CE2E2B543100FCF3B2 /* extensionTableView.swift in Sources */,
 				3B2447122E28418D00E6379F /* ViewController.swift in Sources */,
 				3B24470E2E28418D00E6379F /* AppDelegate.swift in Sources */,
+				3B31C47D2E2E4B19002F9638 /* ScrechViewController.swift in Sources */,
+				3B31C4812E2EE196002F9638 /* extensionTextField.swift in Sources */,
 				3B2447102E28418D00E6379F /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

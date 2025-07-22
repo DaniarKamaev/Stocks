@@ -34,8 +34,10 @@ class ViewController: UIViewController {
         button.setImage(image, for: .normal)
         button.layer.cornerRadius = 25
         button.clipsToBounds = true
+        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         view.addSubview(button)
     }
+    
     
     private func createdStandertButton(_ button: UIButton) {
         let image = UIImage(named: "stocs")
@@ -43,7 +45,7 @@ class ViewController: UIViewController {
         button.center.y = myFavorie.center.y
         button.center.x = view.center.x - 130
         button.setImage(image, for: .normal)
-        
+        button.addTarget(self, action: #selector(stocsActions), for: .touchUpInside)
         view.addSubview(button)
     }
     private func creatadRefrash(_ refrash: UIRefreshControl) {
@@ -57,10 +59,12 @@ class ViewController: UIViewController {
         button.frame = CGRect(x: 0, y: 130, width: 100, height: 30)
         button.center.x = view.center.x - 30        
         button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(likeActions), for: .touchUpInside)
         view.addSubview(button)
     }
     
     private func createdTable(_ table: UITableView) {
+        navigationController?.navigationBar.isHidden = true
         table.frame = view.frame
         table.center.y = view.center.y + 200
         table.register(CastomCell.self, forCellReuseIdentifier: "identifier")
@@ -71,5 +75,23 @@ class ViewController: UIViewController {
         view.addSubview(table)
     }
    
-
+    @objc func tap() {
+        let vc = ScrechViewController()
+        navigationController?.pushViewController(vc, animated: false)
+    }
+    @objc func stocsActions() {
+        let image = UIImage(named: "favorite")
+        let imageStoc = UIImage(named: "stocs")
+        myFavorie.setImage(image, for: .normal)
+        myStandart.setImage(imageStoc, for: .normal)
+    }
+    
+    
+    @objc func likeActions() {
+        let image = UIImage(named: "Favorite-1")
+        let imageStoc = UIImage(named: "stocsLow")
+        myFavorie.setImage(image, for: .normal)
+        myStandart.setImage(imageStoc, for: .normal)
+        
+    }
 }

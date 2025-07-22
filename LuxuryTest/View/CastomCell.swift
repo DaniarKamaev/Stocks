@@ -10,6 +10,7 @@ class CastomCell: UITableViewCell {
     
     let model = ViewModel()
     let dataModel = Model()
+    var react = false
     
     private var name: UILabel = {
         let lable = UILabel()
@@ -39,6 +40,16 @@ class CastomCell: UITableViewCell {
         return lable
     }()
     
+    private let favorite: UIButton = {
+        var reaction = false
+        let button = UIButton()
+        let image = UIImage(named: "notLike")
+        button.setImage(image, for: .normal)
+        button.setContentCompressionResistancePriority(.required, for: .vertical)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
     
     private let photo: UIImageView = {
         let imageView = UIImageView()
@@ -65,6 +76,7 @@ class CastomCell: UITableViewCell {
         contentView.addSubview(lable)
         contentView.addSubview(name)
         contentView.addSubview(price)
+        contentView.addSubview(favorite)
             
             NSLayoutConstraint.activate([
                 photo.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
@@ -84,19 +96,48 @@ class CastomCell: UITableViewCell {
                 price.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
                 
                 name.leadingAnchor.constraint(equalTo: photo.trailingAnchor, constant: 20),
-                name.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+                name.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0),
                 name.topAnchor.constraint(equalTo: lable.topAnchor, constant: 60),
-                name.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+                name.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+                
+                favorite.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -80),
+                favorite.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
+                favorite.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -25),
+                favorite.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
             ])
         }
+    //////////////////////////////////////////////////////////////////////////////
+    
+    let userDef = UserDefaults.standard
+    
+    private func like(_ button: UIButton) {
+        button.addTarget(self, action: #selector(tap), for: .touchUpInside)
+    }
+    
+    @objc func tap() {
+        if react == false {
+            self.react = true
+            let image = UIImage(named: "like")
+            favorite.setImage(image, for: .normal)
+            userDef.addSuite(named: "like")
+        } else {
+            self.react = false
+            let image = UIImage(named: "notLike")
+            favorite.setImage(image, for: .normal)
+        }
+    }
+    //////////////////////////////////////////////////////////////////////////////////////
+    
+    
     public func configurate(_ indexPath: IndexPath, _ tableView: UITableView) {
+        
+        like(favorite)
         
         
         let text = dataModel.arrayCompany[indexPath.row]
         DispatchQueue.main.async {
             self.lable.text = text
         }
-      
         
         model.getName(indexPath.row) { data in
             if let text = data {
