@@ -10,6 +10,29 @@ import Foundation
 class Model {
     let arrayCompany = ["AAPL", "TSLA", "ROSN", "MSFT", "AMZN", "GOOGL", "MA", "BAC", "ZM", "APPN", "APPF"]
     
+    let companyNames: [String: String] = [
+        "AAPL": "Apple Inc.",
+        "TSLA": "Tesla Inc.",
+        "ROSN": "Rosneft",
+        "MSFT": "Microsoft Corporation",
+        "AMZN": "Amazon.com Inc.",
+        "GOOGL": "Alphabet Inc.",
+        "MA": "Mastercard Incorporated",
+        "BAC": "Bank of America Corporation",
+        "ZM": "Zoom Video Communications",
+        "APPN": "Appian Corporation",
+        "APPF": "AppFolio Inc."
+    ]
+        
+    func searchCompanies(with query: String) -> [String] {
+        let lowercasedQuery = query.lowercased()
+        return arrayCompany.filter { ticker in
+            ticker.lowercased().contains(lowercasedQuery) ||
+            (companyNames[ticker]?.lowercased().contains(lowercasedQuery) ?? false)
+        }
+    }
+    
+    
     private let favoritesKeys = "favoriteCompanies"
     
     public func getFavoriteCompanies() -> [String] {
