@@ -17,8 +17,7 @@ extension ScrechViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let company = searchResults[indexPath.row]
-        
-        cell.configurate(with: company, tableView)
+        cell.configurate(with: company, viewModel: self.viewModel, tableView: tableView)
         if ((indexPath.row % 2) != 0) {
             cell.backgroundColor = .systemGray6
         }

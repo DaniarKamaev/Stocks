@@ -8,7 +8,7 @@ import UIKit
 
 class CastomCell: UITableViewCell {
     
-    let model = ViewModel()
+    weak var viewModel: ViewModel?
     let dataModel = Model()
     var currentCompany: String?
     var react = false
@@ -138,7 +138,8 @@ class CastomCell: UITableViewCell {
 
     //MARK: - Configurate
     
-    public func configurate(with company: String, _ tableView: UITableView) {
+    public func configurate(with company: String, viewModel: ViewModel, tableView: UITableView) {
+        self.viewModel = viewModel
         currentCompany = company
         updateFavoriteButton()
         
@@ -148,7 +149,7 @@ class CastomCell: UITableViewCell {
         }
         if let index = dataModel.arrayCompany.firstIndex(of: company) {
             
-            model.getCompanyInfoAndImage(index) { [weak self] price, name, image in
+            viewModel.getCompanyInfoAndImage(index) { [weak self] price, name, image in
                 guard let self = self else { return }
                 DispatchQueue.main.async {
                     self.name.text = name
@@ -157,5 +158,8 @@ class CastomCell: UITableViewCell {
                 }
             }
         }
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
     }
 }

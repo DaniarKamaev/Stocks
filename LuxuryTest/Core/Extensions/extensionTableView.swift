@@ -27,7 +27,7 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             company = model.arrayCompany[indexPath.row]
         }
         
-        cell.configurate(with: company, tableView)
+        cell.configurate(with: company, viewModel: viewModel, tableView: tableView)
         if ((indexPath.row % 2) != 0) {
             cell.backgroundColor = .systemGray6
         }

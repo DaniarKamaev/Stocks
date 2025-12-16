@@ -19,19 +19,16 @@ class APIWork {
         let request = URLRequest(url: url)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
-                print(error!)
                 complition(.failure(error!))
                 return
             }
             guard let data = data else {
-                print("Data is empty")
-                complition(.failure(error!))
+                let error = NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Data is empty"])
+                complition(.failure(error))
                 return
             }
-            DispatchQueue.main.async {
-                print(data)
-                complition(.success(data))
-            }
+            print("Data received: \(data.count) bytes")
+            complition(.success(data))
         }
         task.resume()
     }
