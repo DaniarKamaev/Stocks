@@ -46,16 +46,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
     private func show() {
         myTable.center.y = view.center.y + 100
         myTable.contentSize.height = view.frame.height + 100
-        myFavorie.center.y = view.center.y - 380
-        myStandart.center.y = view.center.y - 380
+        myFavorie.center.y = view.center.y - 355
+        myStandart.center.y = view.center.y - 355
         myScrech.isHidden = true
     }
     
     private func hide() {
         myTable.center.y = view.center.y + 200
         myTable.contentSize.height = view.frame.height - 100
-        myFavorie.center.y = view.center.y - 305
-        myStandart.center.y = view.center.y - 305
+        myFavorie.center.y = view.center.y - 265
+        myStandart.center.y = view.center.y - 265
         myScrech.isHidden = false
     }
     

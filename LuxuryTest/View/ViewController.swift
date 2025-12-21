@@ -31,10 +31,27 @@ class ViewController: UIViewController {
     //MARK: - UI
     private func createdScreachButton(_ button: UIButton) {
         let image = UIImage(named: "screch")
-        button.frame = CGRect(x: 0, y: 60, width: 400, height: 60)
-        button.center.x = view.center.x
-        button.setImage(image, for: .normal)
-        button.layer.cornerRadius = 25
+        
+        let screenWidth = UIScreen.main.bounds.width
+        let buttonWidth = screenWidth * 0.8
+        let buttonHeight: CGFloat = 60
+        
+        button.frame = CGRect(x: 0, y: 0, width: buttonWidth, height: buttonHeight)
+        button.center = CGPoint(x: view.center.x, y: view.center.y - 335)
+        
+        button.autoresizingMask = [
+            .flexibleLeftMargin,
+            .flexibleRightMargin,
+            .flexibleTopMargin,
+            .flexibleBottomMargin,
+            .flexibleWidth
+        ]
+        button.setImage(image?.resizableImage(
+            withCapInsets: UIEdgeInsets.zero,
+            resizingMode: .stretch
+        ), for: .normal)
+        
+        button.layer.cornerRadius = buttonHeight / 2
         button.clipsToBounds = true
         button.addTarget(self, action: #selector(tap), for: .touchUpInside)
         view.addSubview(button)
@@ -59,7 +76,8 @@ class ViewController: UIViewController {
     private func createdFavoriteButton(_ button: UIButton) {
         let image = UIImage(named: "favorite")
         button.frame = CGRect(x: 0, y: 130, width: 100, height: 30)
-        button.center.x = view.center.x - 30        
+        button.center.y = view.center.y - 265
+        button.center.x = view.center.x - 30
         button.setImage(image, for: .normal)
         button.addTarget(self, action: #selector(likeActions), for: .touchUpInside)
         view.addSubview(button)

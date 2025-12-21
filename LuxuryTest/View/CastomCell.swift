@@ -103,7 +103,7 @@ class CastomCell: UITableViewCell {
                 name.topAnchor.constraint(equalTo: lable.topAnchor, constant: 60),
                 name.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
                 
-                favorite.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: -80),
+                favorite.leadingAnchor.constraint(equalTo: name.leadingAnchor, constant: -20),
                 favorite.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -5),
                 favorite.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -25),
                 favorite.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
@@ -142,24 +142,45 @@ class CastomCell: UITableViewCell {
         self.viewModel = viewModel
         currentCompany = company
         updateFavoriteButton()
-        
         like(favorite)
+        
         DispatchQueue.main.async {
             self.lable.text = company
         }
+        
         if let index = dataModel.arrayCompany.firstIndex(of: company) {
+            if self.lable.text == company && self.name.text != nil {
+                return
+            }
             
             viewModel.getCompanyInfoAndImage(index) { [weak self] price, name, image in
                 guard let self = self else { return }
+                
+                guard self.currentCompany == company else { return }
+                
                 DispatchQueue.main.async {
                     self.name.text = name
                     self.price.text = price
-                    self.photo.image = image
+                    
+                    if let image = image {
+                        self.photo.image = image
+                    } else {
+                        self.photo.image = UIImage(named: "placeholder")
+                    }
                 }
             }
         }
     }
     override func prepareForReuse() {
         super.prepareForReuse()
+        currentCompany = nil
+        photo.image = nil
+        name.text = nil
+        price.text = nil
+
+        if let company = currentCompany,
+           let index = dataModel.arrayCompany.firstIndex(of: company) {
+            viewModel?.cancelRequest(for: index)
+        }
     }
 }

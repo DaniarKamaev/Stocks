@@ -96,7 +96,7 @@ class ScrechViewController: UIViewController {
     }
     
     private func createView(_ button: UIButton, index: Int) {
-        button.backgroundColor = .systemGray6
+        button.backgroundColor = .white
         button.clipsToBounds = true
         button.layer.cornerRadius = 15
         button.setTitleColor(.black, for: .normal)
@@ -117,27 +117,31 @@ class ScrechViewController: UIViewController {
             resultsTableView.isHidden = true
             popularLabel.isHidden = false
             createdHelp()
+            viewModel.cancelAllRequests()
             return
         }
         
         isSearching = true
         popularLabel.isHidden = true
         [ddd, sss, vvv, ccc, bbb, ppp].forEach { $0.isHidden = true }
-            searchResults = model.arrayCompany.filter { $0.lowercased().contains(searchText.lowercased()) }
-            resultsTableView.reloadData()
-            resultsTableView.isHidden = false
-        }
         
-        @objc func tap(button: UIButton) {
-                myTextField.text = button.titleLabel?.text
-                textFieldDidChange(myTextField)
-            }
+        viewModel.cancelAllRequests()
+        
+        searchResults = model.arrayCompany.filter { $0.lowercased().contains(searchText.lowercased()) }
+        resultsTableView.reloadData()
+        resultsTableView.isHidden = false
+    }
+        
+    @objc func tap(button: UIButton) {
+        myTextField.text = button.titleLabel?.text
+        textFieldDidChange(myTextField)
+    }
             
-            @objc func tapBack() {
-                navigationController?.popViewController(animated: false)
-            }
+    @objc func tapBack() {
+        navigationController?.popViewController(animated: false)
+    }
             
-            @objc func endEdit() {
-                view.endEditing(true)
-            }
-        }
+    @objc func endEdit() {
+        view.endEditing(true)
+    }
+}
